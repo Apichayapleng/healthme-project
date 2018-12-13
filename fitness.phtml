@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+<?php
+    require_once "connectdb.php";
+    if(isset($_POST['submitted'])){
+        $key = $_POST['key'];
+        $query = "SELECT * from fitness where fitness_name like '%$key%'";
+        $result = $conn->query($query);
+        if ($query ===FALSE) {
+            die(mysql_error());     
+        }
+    }else{
+        $query = "SELECT * from fitness";
+        $result = $conn->query($query);
+    }
+?>
 <html lang="en">
 
 <head>
@@ -99,8 +113,8 @@
                             <!-- <div class="home_title">Search</div> -->
                             <div class="domain_search">
                                 <div class="domain_search_background"></div>
-                                <form action="#" class="domain_search_form" id="domain_search_form">
-                                    <input type="text" class="domain_search_input" placeholder="Search.." required="required">
+                                <form action="fitness.phtml" method="post" class="domain_search_form" id="domain_search_form">
+                                    <input type="text" class="domain_search_input" placeholder="Search.." required="required" name="key" id="key">
                                     <!-- <div class="domain_search_dropdown d-flex flex-row align-items-center justify-content-center">
 										<div class="domain_search_selected">.com</div>
 										<ul>
@@ -109,7 +123,7 @@
 											<li>.net</li>
 										</ul>
 									</div> -->
-                                    <button class="domain_search_button">search</button>
+                                    <input type="submit" name="submitted" value="Search" class="domain_search_button">
                                 </form>
                             </div>
                         </div>
@@ -158,28 +172,23 @@
 			<div class="row team_row">
 				
 				<!-- Team Item -->
-				<div class="col-xl-3 col-md-6">
-					<div class="team_item">
-						<div class="team_image">
-							<img src="images/virgin-fitness.png" alt="https://unsplash.com/@michaeldam">
-							<div class="team_overlay trans_400"></div>
-							<div class="team_social">
-								<ul class="d-flex flex-row align-items-center justify-content-between">
-									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-									<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="team_content text-center">
-							<div class="team_name">Julia Williams</div>
-							<div class="team_title">Virgin Active</div>
-						</div>
-					</div>
-				</div>
+                 <?php
+                    while ($res = mysqli_fetch_array($result)){
+				echo '<div class="col-xl-3 col-md-6">';
+				echo'	<div class="team_item">';
+				echo'		<div class="team_image">';
+				echo'			<img src="images/virgin-fitness.png" alt="https://unsplash.com/@michaeldam">';
+				echo'			<div class="team_overlay trans_400"></div>';
+				echo'		</div>';
+				echo'		<div class="team_content text-center">';
+				echo "<h5>".$res["fitness_name"]."</h5>";
+				echo'		</div>';
+				echo'	</div>';
+				echo'</div>';
+            }?>
 
 				<!-- Team Item -->
-				<div class="col-xl-3 col-md-6">
+				<!-- <div class="col-xl-3 col-md-6">
 					<div class="team_item">
 						<div class="team_image">
 							<img src="images/we-fitness.png" alt="https://unsplash.com/@stairhopper">
@@ -197,10 +206,10 @@
 							<div class="team_title">We Fitness</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 				<!-- Team Item -->
-				<div class="col-xl-3 col-md-6">
+				<!-- <div class="col-xl-3 col-md-6">
 					<div class="team_item">
 						<div class="team_image">
 							<img src="images/yak-fitness.jpg" alt="https://unsplash.com/@chrisjoelcampbell">
@@ -219,9 +228,9 @@
 						</div>
 					</div>
 				</div>
-
+ -->
 				<!-- Team Item -->
-				<div class="col-xl-3 col-md-6">
+				<!-- <div class="col-xl-3 col-md-6">
 					<div class="team_item">
 						<div class="team_image">
 							<img src="images/fitness-first.png" alt="https://unsplash.com/@brookecagle">
@@ -240,7 +249,7 @@
 						</div>
 					</div>
 				</div>
-
+ -->
 			</div>
 		</div>
 

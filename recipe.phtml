@@ -187,7 +187,7 @@
                     <?php
                     while ($res = mysqli_fetch_array($result)){
                     echo '<div class="card" style="width: 17rem;margin: 0 10px 0 10px">';
-                    echo '<img class="card-img-top" src="images/recipe/1.jpg" alt="Card image cap" >';
+                    echo "<img src='".$res['recipe_pic']."'>";
                     echo '    <div class="card-body">';
                           echo "<h5>".$res["recipe_name"]."</h5>";
                           echo "<p>".$res["recipe_info"]."</p>";
