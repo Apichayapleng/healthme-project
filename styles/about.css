@@ -909,6 +909,7 @@ section
 {
 	width: 100%;
 	height: 100%;
+	padding-bottom: 20px;
 }
 .video-js
 {
@@ -1003,7 +1004,7 @@ section
 {
 	width: 100%;
 	background: #FFFFFF;
-	padding-top: 10px;
+	padding-top: 100px;
 	/* padding-bottom: 126px; */
 }
 .team_text
