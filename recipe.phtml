@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+<?php
+    require_once "connectdb.php";
+    if(isset($_POST['submitted'])){
+        $key = $_POST['key'];
+        $query = "SELECT * from recipe where recipe_name like '%$key%'";
+        $result = $conn->query($query);
+        if ($query ===FALSE) {
+            die(mysql_error());     
+        }
+    }else{
+        $query = "SELECT * from recipe";
+        $result = $conn->query($query);
+    }
+?>
 <html lang="en">
 
 <head>
@@ -100,8 +114,8 @@
                             <div class="home_title">Search</div>
                             <div class="domain_search">
                                 <div class="domain_search_background"></div>
-                                <form action="#" class="domain_search_form" id="domain_search_form">
-                                    <input type="text" class="domain_search_input" placeholder="Search.." required="required">
+                                <form action="recipe.html" method="post" class="domain_search_form" id="domain_search_form">
+                                    <input type="text" class="domain_search_input" placeholder="Search.." required="required" name="key" id="key">
                                     <!-- <div class="domain_search_dropdown d-flex flex-row align-items-center justify-content-center">
 										<div class="domain_search_selected">.com</div>
 										<ul>
@@ -110,7 +124,7 @@
 											<li>.net</li>
 										</ul>
 									</div> -->
-                                    <button class="domain_search_button">search</button>
+                                    <input type="submit" name="submitted" value="Search" class="domain_search_button">
                                 </form>
                             </div>
                         </div>
@@ -173,7 +187,30 @@
                     </div> -->
 
                     <!-- Why Item -->
-                    <div class="card" style="width: 17rem;margin: 0 10px 0 10px">
+                    <?php
+                    while ($res = mysqli_fetch_array($result)){
+                    echo '<div class="card" style="width: 17rem;margin: 0 10px 0 10px">';
+                    echo '<img class="card-img-top" src="images/recipe/1.jpg" alt="Card image cap" >';
+                    echo '    <div class="card-body">';
+                          echo "<h5>".$res["recipe_name"]."</h5>";
+                          echo "<p>".$res["recipe_info"]."</p>";
+                    echo '    </div>';
+                    echo '    <ul class="list-group list-group-flush">';
+                    echo '      <li class="list-group-item">10 minutes</li>';
+                    echo '      <li class="list-group-item">1 hour</li>';
+                    echo '      <li class="list-group-item">Easy</li>';
+                    echo '    </ul>';
+                    echo '    <div class="card-body">';
+                    echo '      <a href="#" class="card-link">Save</a>';
+                    echo '      <a href="#" class="card-link">START</a>';
+                    echo '    </div>';
+                    echo '  </div>';
+                  }
+                    ?>
+
+
+
+                      <!-- <div class="card" style="width: 17rem;margin: 0 10px 0 10px">
                         <img class="card-img-top" src="images/recipe/1.jpg" alt="Card image cap" >
                         <div class="card-body">
                           <h5 class="card-title">Baked chilli & jacket potatoes</h5>
@@ -223,24 +260,7 @@
                           <a href="#" class="card-link">Save</a>
                           <a href="#" class="card-link">START</a>
                         </div>
-                      </div>
-                      <div class="card" style="width: 17rem;margin: 0 10px 0 10px">
-                        <img class="card-img-top" src="images/recipe/1.jpg" alt="Card image cap" >
-                        <div class="card-body">
-                          <h5 class="card-title">Baked chilli & jacket potatoes</h5>
-                          <p class="card-text">
-                            Jacket potatoes and chilli are great comfort food when the nights draw in. Make ours in the week when you're short on time for a nutritious family dinner</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item">10 minutes</li>
-                          <li class="list-group-item">1 hour</li>
-                          <li class="list-group-item">Easy</li>
-                        </ul>
-                        <div class="card-body">
-                          <a href="#" class="card-link">Save</a>
-                          <a href="#" class="card-link">START</a>
-                        </div>
-                      </div>
+                      </div> -->
                       
                     <!-- <div class="col-lg-4">
                         <div class="icon_box_1 text-center">
